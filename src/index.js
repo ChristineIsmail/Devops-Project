@@ -1,28 +1,35 @@
-const express = require('express')
-const userRouter = require('./routes/user')
-const bodyParser = require('body-parser')
+const express = require('express');
+const userRouter = require('./routes/user');
+const bodyParser = require('body-parser');
 
-const app = express()
-const port = process.env.PORT || 3000
+// Import the health route
+const healthRouter = require('./routes/health.route'); 
 
-const db = require('./dbClient')
+const app = express();
+const port = process.env.PORT || 3000;
+
+const db = require('./dbClient');
 db.on("error", (err) => {
-  console.error(err)
-})
+  console.error(err);
+});
 
-app.use(bodyParser.urlencoded({
-  extended: false
-}))
-app.use(bodyParser.json())
+// Use middleware to parse incoming request bodies
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-app.get('/', (req, res) => res.send('Hello World!'))
+// Health check route
+app.use(healthRouter); // Mount the health check route
 
-app.use('/user', userRouter)
+// Default route for testing
+app.get('/', (req, res) => res.send('Hello World!'));
 
+// Mount user routes
+app.use('/user', userRouter);
+
+// Start the server
 const server = app.listen(port, (err) => {
-  if (err) throw err
-  console.log("Server listening the port " + port)
-})
+  if (err) throw err;
+  console.log("Server listening on port " + port);
+});
 
-
-module.exports = server
+module.exports = server;
