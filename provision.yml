@@ -1,0 +1,39 @@
+---
+- name: Provision VM with Ansible
+  hosts: all
+  become: yes  
+
+  tasks:
+    - name: Update package lists
+      apt:
+        update_cache: yes
+
+    - name: Install required dependencies
+      apt:
+        name:
+          - nodejs
+          - npm
+          - redis-server
+        state: present
+
+    - name: Install Node.js project dependencies
+      npm:
+        path: /home/vagrant/app
+        state: present
+
+    - name: Enable and start Redis service
+      service:
+        name: redis-server
+        state: started
+        enabled: yes
+
+    - name: Start the Node.js application
+      shell: "nohup npm start &"
+      args:
+        chdir: /home/vagrant/app
+        creates: /home/vagrant/app/app.log
+
+    - name: Perform application health check
+      uri:
+        url: http://192.168.56.10:3000
+        status_code: 200
