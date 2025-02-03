@@ -61,3 +61,28 @@ From the root directory of the project, run:
 ```
 npm test
 ```
+## 3. Vagrant and Ansible Setup
+
+This section shows how to run the application using **Vagrant** and **Ansible** to configure the VM and install dependencies automatically.
+
+### Requirements
+
+- [Install Vagrant](https://www.vagrantup.com/downloads)
+- [Install VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+
+### Setup
+
+In the project directory, run the following commands:
+
+```bash
+vagrant destroy -f  # Destroy the old VM
+vagrant up          # Create a new VM and apply Ansible provisioning
+
+
+
+
+
+
+
+
+
