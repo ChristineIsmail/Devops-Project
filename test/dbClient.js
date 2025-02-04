@@ -1,16 +1,16 @@
 const redis = require('redis');
 
-// Use the Redis URL from environment variables (e.g., from Render)
+// Create Redis client using the environment variable for Redis URL
 const client = redis.createClient({
-  url: process.env.REDIS_URL, // The Redis URL is set through the environment variable
+  url: process.env.REDIS_URL,  // Get the Redis URL from environment variable
 });
 
-// Add event listeners for Redis connection
+// Listen for connection event
 client.on('connect', () => {
   console.log('Connected to Redis');
 });
 
-// Handle Redis connection errors
+// Handle errors
 client.on('error', (err) => {
   console.error('Redis error:', err);
 });
