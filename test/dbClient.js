@@ -1,18 +1,27 @@
 const redis = require('redis');
 
-// Create Redis client using the environment variable for Redis URL
+// Create a Redis client
 const client = redis.createClient({
-  url: process.env.REDIS_URL,  // Get the Redis URL from environment variable
+  url: process.env.REDIS_URL, // Using environment variable for Redis connection URL
 });
 
-// Listen for connection event
-client.on('connect', () => {
-  console.log('Connected to Redis');
-});
+// Connect to Redis (with async/await)
+async function connectRedis() {
+  try {
+    await client.connect(); // Use 'await' to connect
+    console.log('Connected to Redis');
+  } catch (err) {
+    console.error('Redis error:', err);
+  }
+}
+
+// Call the connection function
+connectRedis();
 
 // Handle errors
 client.on('error', (err) => {
   console.error('Redis error:', err);
 });
 
+// Export client to use in other parts of the application
 module.exports = client;
