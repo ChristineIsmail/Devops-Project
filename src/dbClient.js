@@ -1,17 +1,24 @@
-var redis = require("redis");
-const configure = require('./configure')
+const redis = require('redis');
 
-const config = configure()
-var db = redis.createClient({
-  host: config.redis.host,
-  port: config.redis.port,
-  retry_strategy: () => {
-    return new Error("Retry time exhausted")
-  }
-})
+// Get the Redis URL from environment variables
+const redisURL = process.env.REDIS_URL;
 
-process.on('SIGINT', function() {
-  db.quit();
+// Create the Redis client using the connection URL
+const client = redis.createClient({
+  url: redisURL
 });
 
-module.exports = db
+// Connect to Redis
+client.connect();
+
+// Event listeners for Redis connection
+client.on('connect', () => {
+  console.log('Connected to Redis...');
+});
+
+client.on('error', (err) => {
+  console.error('Redis connection error:', err);
+});
+
+// Export the Redis client
+module.exports = client;
