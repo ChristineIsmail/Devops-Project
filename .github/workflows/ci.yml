@@ -1,0 +1,39 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main  # This triggers the pipeline whenever changes are pushed to the 'main' branch
+  pull_request:
+    branches:
+      - main  # This triggers the pipeline when a pull request is made to the 'main' branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # This uses an Ubuntu runner
+
+    steps:
+    # Step 1: Check out the code
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    # Step 2: Set up Node.js (use the version you're working with)
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'  # Replace with the Node.js version your project uses
+
+    # Step 3: Install dependencies
+    - name: Install dependencies
+      run: npm install
+
+    # Step 4: Run tests
+    - name: Run tests
+      run: npm test  # Make sure the tests are already set up in your package.json
+
+    # Step 5: Deploy to Render (or another platform)
+    - name: Deploy to Render
+      env:
+        RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}  # Store your Render API key in GitHub Secrets
+      run: |
+        curl -X POST https://api.render.com/deploy/YOUR_RENDER_DEPLOY_URL
