@@ -1,66 +1,50 @@
-# User API web application
+# User API with Redis and Testing
+## 1. Web Application
 
-It is a basic NodeJS web application exposing REST API that creates and stores user parameters in [Redis database](https://redis.io/).
+## Overview
+This project is a simple **User API** built with **Node.js** and **Express**, using **Redis** as the database. It provides CRUD functionality for users and is covered with unit, API, configuration, and connection tests. A **health check endpoint** ensures that the application is functional.
 
-## Functionality
+## Features
+- **CRUD Operations**:
+  - Create a user (`POST /user`)
+  - Retrieve user details (`GET /user/:username`)
+  - Update user details (`PUT /user/:username`)
+  - Delete a user (`DELETE /user/:username`)
+- **Redis Database** for storing user data.
+- **Unit and API Testing** using `mocha`, `chai`, and `chai-http`.
+- **Health Check Endpoint** (`GET /health`) to verify application status.
 
-1. Start a web server
-2. Create a user
+## Setup Instructions
 
-## Installation
+### 1. Prerequisites
+Ensure you have the following installed:
+- **Node.js** (v14+ recommended)
+- **Redis** (running on `localhost:6379`)
 
-This application is written on NodeJS and it uses Redis database.
-
-1. [Install NodeJS](https://nodejs.org/en/download/)
-
-2. [Install Redis](https://redis.io/download)
-
-3. Install application
-
-Go to the root directory of the application (where `package.json` file located) and run:
-
+### 2. Clone the Repository
 ```
-npm install 
+git clone <repo-url>
+cd <repo-folder>
 ```
-
-## Usage
-
-1. Start a web server
-
-From the root directory of the project run:
-
+### 3. Install Dependencies
+```
+npm install
+```
+### 4. Start Redis Server
+```
+redis-server
+```
+### 5. Run the Application
 ```
 npm start
 ```
-
-It will start a web server available in your browser at http://localhost:3000.
-
-2. Create a user
-
-Send a POST (REST protocol) request using terminal:
-
-```bash
-curl --header "Content-Type: application/json" \
-  --request POST \
-  --data '{"username":"sergkudinov","firstname":"sergei","lastname":"kudinov"}' \
-  http://localhost:3000/user
-```
-
-It will output:
-
-```
-{"status":"success","msg":"OK"}
-```
-
-Another way to test your REST API is to use [Postman](https://www.postman.com/).
-
-## Testing
-
-From the root directory of the project, run:
-
+### 6. Run tests
 ```
 npm test
 ```
+
+## 2. CI/CD pipeline
+
 ## 3. Vagrant and Ansible Setup
 
 This section shows how to run the application using **Vagrant** and **Ansible** to configure the VM and install dependencies automatically.
@@ -78,11 +62,25 @@ In the project directory, run the following commands:
 vagrant destroy -f  # Destroy the old VM
 vagrant up          # Create a new VM and apply Ansible provisioning
 
+```
+## 4. Docker Image 
+
+- Created a `Dockerfile` to define the environment for the application.
+-  Dockerized the application and tested it locally.
+-  Pushed the Docker image to Docker Hub for deployment.
+
+## 5. Container orchestration using Docker Compose
+ - Created a `docker-compose.yml` file to manage the application and Redis containers.
+ -  Defined the services for the app and Redis in the Docker Compose file.
+ -  Used `docker-compose up -d` to start the containers and ensure proper communication between them.
 
 
-
-
-
-
-
+## Technologies Used
+- **Node.js**: Backend framework for building the API.
+- **Redis**: In-memory data structure store, used as a database.
+- **Docker**: Containerization technology to package the app.
+- **Docker Compose**: Tool for defining and running Docker applications.
+- **GitHub Actions**: Continuous Integration (CI) tool for automating testing and deployment.
+- **Render**: Platform for deploying the application.
+- **Upstash**: Redis service provider for hosting the Redis database.
 
