@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  app:
+    image: christineismail/devops-project:latest  
+    ports:
+      - "3000:3000" 
+    environment:
+      - REDIS_URL=redis://default:ASjzAAIjcDFkMDYyMzcyODBmODM0MjY3YmY0MDMxNWQ4YThlZTY0OHAxMA@flowing-shepherd-10483.upstash.io:6379  # Your Redis connection URL
+    depends_on:
+      - redis
+
+  redis:
+    image: "redis:latest"
+    container_name: "redis_container"
+    ports:
+      - "6379:6379"
