@@ -131,3 +131,48 @@ vagrant up          # Create a new VM and apply Ansible provisioning
 - **Render**: Platform for deploying the application.
 - **Upstash**: Redis service provider for hosting the Redis database.
 
+
+
+## 6. Kubernetes Orchestration with Minikube
+
+- Initialized a local Kubernetes cluster using **Minikube**.
+- Created Kubernetes manifest files for **Deployment, Service, Persistent Volume, and Persistent Volume Claim**.
+- Deployed the application and Redis database to Kubernetes.
+- Exposed the application using a **LoadBalancer** service.
+- Used `kubectl` commands to monitor pods, logs, and services.
+
+### Steps:
+
+1. **Apply Kubernetes Manifests**
+
+   - **Persistent Volume for Redis**  
+     ```bash
+     kubectl apply -f k8s/persistent-volume.yaml
+     kubectl apply -f k8s/persistent-volume-claim.yaml
+     ```
+
+   - **Deploy the Application**  
+     ```bash
+     kubectl apply -f k8s/deployment.yaml
+     kubectl get pods
+     ```
+
+   - **Expose the Service**  
+     ```bash
+     kubectl apply -f k8s/service.yaml
+     kubectl get services
+     ```
+
+2. **Access the Application**  
+   ```bash
+   minikube service devops-app-service
+   ```
+3. **Monitor and debug**  
+
+```bash
+kubectl logs -l app=devops-app
+kubectl describe service devops-app-service
+
+```
+**Outcome**
+The application is successfully deployed and accessible through Kubernetes.
