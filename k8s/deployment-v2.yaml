@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devops-app-v2
+  labels:
+    app: devops-app
+    version: v2
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: devops-app
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: devops-app
+        version: v2
+    spec:
+      containers:
+      - name: devops-app
+        image: christineismail/devops-project:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: REDIS_URL
+          value: redis://default:ASjzAAIjcDFkMDYyMzcyODBmODM0MjY3YmY0MDMxNWQ4YThlZTY0OHAxMA@flowing-shepherd-10483.upstash.io:6379

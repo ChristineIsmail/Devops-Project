@@ -176,3 +176,34 @@ kubectl describe service devops-app-service
 ```
 **Outcome**
 The application is successfully deployed and accessible through Kubernetes.
+
+# 7. Creating a Service Mesh with Istio
+
+## 7.1. Installing Istio
+
+Installing Istio using the Istio CLI and enable sidecar injection for the default namespace.
+
+## 7.2. Deploy the Application
+
+Deploying the v1 and v2 versions of the application using Kubernetes manifests.
+
+## 7.3. Create an Istio Gateway
+
+Setting up an Istio Gateway to expose the service to external traffic.
+
+## 7.4. Create a VirtualService
+
+Creating a VirtualService to route traffic to the different versions of the application (v1 and v2).
+
+## 7.5. Add DestinationRules
+
+Defining DestinationRules for the v1 and v2 versions of the app, allowing Istio to manage traffic routing to each version.
+
+## 7.6. Traffic Shifting
+
+Configuring traffic shifting in the VirtualService to route a percentage of the traffic to v1 and v2. For example, route 80% to v1 and 20% to v2.
+
+## 7.7. Test the Traffic Routing
+
+Checking the external IP of the Istio Ingress Gateway and verify that traffic is routed and shifted correctly between v1 and v2 by visiting the URL in the browser.
+
