@@ -176,13 +176,15 @@ kubectl describe service devops-app-service
 The application is successfully deployed and accessible through Kubernetes.
 
 ![6 - 1 minikube start](Screenshots/6%20-%201%20minikube%20start.png)
-
+![6 - 2 minikube container on docker](Screenshots/6%20-%202%20minikube%20container%20on%20docker%20.png)
 
 # 7. Creating a Service Mesh with Istio
 
 ### 7.1. Installing Istio
 
 Installing Istio using the Istio CLI and enable sidecar injection for the default namespace.
+
+![7-1 verification if istio is installed](Screenshots/7-1%20verification%20if%20istio%20is%20installed.png)
 
 ### 7.2. Deploy the Application
 
@@ -191,6 +193,7 @@ Deploying the v1 and v2 versions of the application using Kubernetes manifests.
 ### 7.3. Create an Istio Gateway
 
 Setting up an Istio Gateway to expose the service to external traffic.
+![7-3 apply gateway](Screenshots/7-3%20apply%20gateway.png)
 
 ### 7.4. Create a VirtualService
 
@@ -199,6 +202,7 @@ Creating a VirtualService to route traffic to the different versions of the appl
 ### 7.5. Add DestinationRules
 
 Defining DestinationRules for the v1 and v2 versions of the app, allowing Istio to manage traffic routing to each version.
+![7-3 apply virtual service and destinationrule](Screenshots/7-3%20apply%20virtual%20service%20and%20destinationrule.png)
 
 ### 7.6. Traffic Shifting
 
@@ -216,6 +220,10 @@ Checking the external IP of the Istio Ingress Gateway and verify that traffic is
 - Install **Prometheus** and **Grafana** in the Kubernetes cluster using Helm charts or YAML manifests.
 - Expose **Prometheus** and **Grafana** via port-forwarding for local access.
 
+![8 - 1 Welcome to grafana](Screenshots/8%20-%201%20Welcome%20to%20grafana.png)
+![8-2 first access to prometheus on localhost](Screenshots/8-2%20first%20access%20to%20prometheus%20on%20localhost.PNG)
+![8-3 querying prometheus with grafana](Screenshots/8-3%20querying%20prometheus%20with%20grafana.png)
+
 ### 8.2. Create Prometheus Alerting Rules
 
 - Define **Prometheus alerting rules** to monitor system and application performance.
@@ -232,22 +240,28 @@ Checking the external IP of the Istio Ingress Gateway and verify that traffic is
 
 - Access **Prometheus** via the web interface (`localhost:9090`).
 - Navigate to the **Alerting** section and verify that the defined alerts (e.g., High CPU usage, High memory usage) are listed and active.
+![8-6 alerts on Prometheus UI](Screenshots/8-6%20alerts%20on%20Prometheus%20UI.png)
+![8-7 alerts loaded into prometheus UI](Screenshots/8-7%20alerts%20loaded%20into%20prometheus%20UI.png)
 
-### 8.5. Configure Grafana Dashboards (screenshots available)
+### 8.5. Configure Grafana Dashboards 
 
 - Link **Prometheus** as a data source in **Grafana**.
 - Create or import **Grafana dashboards** that visualize the metrics and show triggered alerts.
 - Set up Grafana alerts to receive notifications when Prometheus alerts are triggered.
 
-### 8.6. Trigger Alerts by Shutting Down Applications
+![8-4 dashboard loaded to Grafana](Screenshots/8-4%20dashboard%20loaded%20to%20Grafana.png)
 
+### 8.6. Trigger Alerts by Shutting Down Applications
+- Delete one of the monitoring pods to trigger the alerts
 - Simulate **high CPU usage** or **high memory usage** by shutting down application pods.
 - Monitor how **Prometheus** and **Grafana** handle the triggered alerts.
 
-### 8.7. View Alerts in Grafana
+### 8.7. View Alerts in Grafana and/or in prometheus
 
 - Access **Grafana** via the web interface (`localhost:3000`).
 - Navigate to the **Alerting** section in **Grafana** to view the triggered alerts and monitor the alert status.
+![8-8 alert firing after deleting the pod](Screenshots/8-8%20alert%20firing%20after%20deleting%20the%20pod.png)
+![8-9 Alert firing after deleting prometheus pod](Screenshots/8-9%20Alert%20firing%20after%20deleting%20prometheus%20pod%20.png)
 
 ### 8.8. Test the Alerts
 
