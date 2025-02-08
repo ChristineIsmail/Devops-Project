@@ -175,6 +175,9 @@ kubectl describe service devops-app-service
 **Outcome**
 The application is successfully deployed and accessible through Kubernetes.
 
+![6 - 1 minikube start](Screenshots/6%20-%201%20minikube%20start.png)
+
+
 # 7. Creating a Service Mesh with Istio
 
 ### 7.1. Installing Istio
