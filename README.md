@@ -106,9 +106,7 @@ This section shows how to run the application using **Vagrant** and **Ansible** 
 In the project directory, run the following commands:
 
 ```bash
-vagrant destroy -f  # Destroy the old VM
-vagrant up          # Create a new VM and apply Ansible provisioning
-
+vagrant up          
 ```
 ## 4. Docker Image 
 
@@ -179,31 +177,75 @@ The application is successfully deployed and accessible through Kubernetes.
 
 # 7. Creating a Service Mesh with Istio
 
-## 7.1. Installing Istio
+### 7.1. Installing Istio
 
 Installing Istio using the Istio CLI and enable sidecar injection for the default namespace.
 
-## 7.2. Deploy the Application
+### 7.2. Deploy the Application
 
 Deploying the v1 and v2 versions of the application using Kubernetes manifests.
 
-## 7.3. Create an Istio Gateway
+### 7.3. Create an Istio Gateway
 
 Setting up an Istio Gateway to expose the service to external traffic.
 
-## 7.4. Create a VirtualService
+### 7.4. Create a VirtualService
 
 Creating a VirtualService to route traffic to the different versions of the application (v1 and v2).
 
-## 7.5. Add DestinationRules
+### 7.5. Add DestinationRules
 
 Defining DestinationRules for the v1 and v2 versions of the app, allowing Istio to manage traffic routing to each version.
 
-## 7.6. Traffic Shifting
+### 7.6. Traffic Shifting
 
 Configuring traffic shifting in the VirtualService to route a percentage of the traffic to v1 and v2. For example, route 80% to v1 and 20% to v2.
 
-## 7.7. Test the Traffic Routing
+### 7.7. Test the Traffic Routing
 
 Checking the external IP of the Istio Ingress Gateway and verify that traffic is routed and shifted correctly between v1 and v2 by visiting the URL in the browser.
 
+
+# 8. Setting up Alerts with Prometheus
+
+### 8.1. Install Prometheus and Grafana
+
+- Install **Prometheus** and **Grafana** in the Kubernetes cluster using Helm charts or YAML manifests.
+- Expose **Prometheus** and **Grafana** via port-forwarding for local access.
+
+### 8.2. Create Prometheus Alerting Rules
+
+- Define **Prometheus alerting rules** to monitor system and application performance.
+- Example alerts:
+  - **High CPU usage** on pods.
+  - **High memory usage** on pods.
+
+### 8.3. Apply Alerting Rules
+
+- Apply the defined alerting rules using the `kubectl apply -f <alerting-rule-file>.yaml` command.
+- Ensure the Prometheus service is scraping the metrics and the alerting rules are active.
+
+### 8.4. Verify Alerts in Prometheus
+
+- Access **Prometheus** via the web interface (`localhost:9090`).
+- Navigate to the **Alerting** section and verify that the defined alerts (e.g., High CPU usage, High memory usage) are listed and active.
+
+### 8.5. Configure Grafana Dashboards (screenshots available)
+
+- Link **Prometheus** as a data source in **Grafana**.
+- Create or import **Grafana dashboards** that visualize the metrics and show triggered alerts.
+- Set up Grafana alerts to receive notifications when Prometheus alerts are triggered.
+
+### 8.6. Trigger Alerts by Shutting Down Applications
+
+- Simulate **high CPU usage** or **high memory usage** by shutting down application pods.
+- Monitor how **Prometheus** and **Grafana** handle the triggered alerts.
+
+### 8.7. View Alerts in Grafana
+
+- Access **Grafana** via the web interface (`localhost:3000`).
+- Navigate to the **Alerting** section in **Grafana** to view the triggered alerts and monitor the alert status.
+
+### 8.8. Test the Alerts
+
+- Ensure the alerting system is functioning as expected by manually triggering the alerts and checking if they are reflected in both **Prometheus** and **Grafana**.

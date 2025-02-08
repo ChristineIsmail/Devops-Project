@@ -1,0 +1,26 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: example-alerts
+  namespace: monitoring  
+spec:
+  groups:
+  - name: example-alerts
+    rules:
+    - alert: HighCpuUsage
+      expr: sum(rate(container_cpu_usage_seconds_total{container!="",pod!=""}[5m])) by (pod) / sum(container_spec_cpu_quota{container!="",pod!=""}) by (pod) > 0.9
+      for: 5m
+      labels:
+        severity: critical
+      annotations:
+        summary: "High CPU usage detected on pod {{ $labels.pod }}"
+        description: "Pod {{ $labels.pod }} is using more than 90% CPU."
+    - alert: HighMemoryUsage
+      expr: sum(container_memory_usage_bytes{container!="",pod!=""}) by (pod) / sum(container_spec_memory_limit_bytes{container!="",pod!=""}) by (pod) > 0.9
+      for: 5m
+      labels:
+        severity: critical
+      annotations:
+        summary: "High memory usage detected on pod {{ $labels.pod }}"
+        description: "Pod {{ $labels.pod }} is using more than 90% memory."
+
