@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 app.use(healthRouter); // Mount the health check route
 
 // Default route for testing
-app.get('/', (req, res) => res.send('Hello World!'));
+app.get('/', (req, res) => res.send('This app focuses on the backend '));
 
 // Mount user routes
 app.use('/user', userRouter);
