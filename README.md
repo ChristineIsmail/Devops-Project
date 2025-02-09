@@ -113,6 +113,8 @@ vagrant up
 - Created a `Dockerfile` to define the environment for the application.
 -  Dockerized the application and tested it locally.
 -  Pushed the Docker image to Docker Hub for deployment.
+-  ![image](https://github.com/user-attachments/assets/74ea5b46-e701-4089-9b4a-f60bab751b9c)
+
 
 ## 5. Container orchestration using Docker Compose
  - Created a `docker-compose.yml` file to manage the application and Redis containers.
