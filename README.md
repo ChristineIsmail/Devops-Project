@@ -64,7 +64,7 @@ We began by setting up GitHub Actions to automate the testing and deployment pro
 ## Step 2: Render Deployment Setup
 
 We used Render as the hosting platform for our application.
-
+( https://devops-project-ufnr.onrender.com )
 1. **Linking GitHub Repository to Render**:
    - We connected the GitHub repository to Render, allowing Render to automatically deploy the application whenever changes are made to the `main` branch.
 
